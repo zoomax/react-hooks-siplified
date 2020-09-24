@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback , useState } from "react";
+import "./App.css";
+import { ThemeProvider } from "./themeContext";
+import { Test } from "./components/test-component/test";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [number , setNumber] = useState(1) ;  
+  const getItems = useCallback(increamenter => {
+    return [number +increamenter ,number + increamenter + 1, number +increamenter + 2];
+  } , [number]);
+  return <div className="App">
+     <input type ="number" 
+     value = {number}
+     onChange = {(e)=> setNumber(+e.target.value)}
+     />
+     <Test getItems = {getItems}></Test>
+  </div>;
 }
 
 export default App;
